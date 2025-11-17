@@ -1,9 +1,6 @@
 package no.oslomet.cs.algdat;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class SøkeBinærTre<T>  implements Beholder<T> {
 
@@ -90,19 +87,84 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     public boolean tom() { return antall == 0; }
 
     // Oppgave 1
-    public boolean leggInn(T verdi) { throw new UnsupportedOperationException(); }
+    public boolean leggInn(T verdi) {
+    if (verdi == null){
+        throw new NullPointerException();
+    }
+
+    if (antall == 0) rot = new Node<>(verdi, null, null, null);
+    else {
+        Node<T> denne = rot;
+        Node<T> forelder = null;
+        int cmp = 0;
+        while (denne != null) {
+            forelder = denne;
+            cmp = comp.compare(verdi, denne.verdi);
+            if (cmp < 0) {
+                denne = denne.venstre;
+            }
+            else {
+                denne = denne.høyre;
+            }
+        }
+        Node <T> nynode = new Node<>(verdi, null, null, forelder);
+        if (cmp < 0) forelder.venstre = nynode;
+        else forelder.høyre = nynode;
+        //Setter høyre/venstre pekeren fra forelder.
+    }
+    antall++;
+    endringer++;
+    return true;
+    }
 
 
     // Oppgave 2
-    public int antall(T verdi){ throw new UnsupportedOperationException(); }
+    // Teller antall forekomster av en verdi i treet
+    public int antall(T verdi){
+    if (verdi == null) return 0;
+    int teller = 0;
+    Node<T> denne = rot;
+
+    while (denne != null){
+        int cmp = comp.compare(verdi, denne.verdi);
+        if (cmp == 0) {
+            teller ++;
+            denne = denne.høyre;
+        }
+        else if (cmp < 0){
+            denne = denne.venstre;
+        } else denne = denne.høyre;
+    }
+    return teller;
+    }
 
     // Oppgave 3
     private Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException();
+        Node<T> denne = p;
+        while (denne.venstre != null || denne.høyre != null){ //hvis denne har barn
+            if (denne.venstre != null) denne = denne.venstre; //går til venstre hvis mulig;
+            else denne = denne.høyre;
+            }
+        return denne;
     }
 
     private Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException();
+        Node<T> neste = null;
+        if (p == rot) return neste;
+        else if (p.forelder.høyre == p) neste = p.forelder;
+        else if (p.forelder.venstre == p){
+            if (p.forelder.høyre == null) neste = p.forelder;
+            else {
+                // neste node er første noden i subtreet der høyresøskenet er rot
+                Node<T> nyrot = p.forelder.høyre;
+                while (nyrot.venstre != null || nyrot.høyre != null){
+                    if (nyrot.venstre != null) nyrot = nyrot.venstre;
+                    else nyrot = nyrot.høyre;
+                }
+                neste = nyrot;
+            }
+        }
+        return neste;
     }
 
     // Oppgave 4
