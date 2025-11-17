@@ -169,7 +169,11 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
 
     // Oppgave 4
     public void postOrden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException();
+        Node<T> node = førstePostorden(rot);
+        while (node != null) {
+            oppgave.utførOppgave(node.verdi);
+            node = nestePostorden(node);
+        }
     }
 
     public void postOrdenRekursiv(Oppgave<? super T> oppgave) {
@@ -177,7 +181,20 @@ public class SøkeBinærTre<T>  implements Beholder<T> {
     }
 
     private void postOrdenRekursiv(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException();
+
+        if (p.venstre == null && p.høyre == null){
+            oppgave.utførOppgave(p.verdi);
+            return;
+        }
+        // base case
+
+        if (p.venstre != null){
+            postOrdenRekursiv(p.venstre, oppgave);
+        }
+        if (p.høyre != null) {
+            postOrdenRekursiv(p.høyre, oppgave);
+        }
+        oppgave.utførOppgave(p.verdi);
     }
 
     // Oppgave 5
