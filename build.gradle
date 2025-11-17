@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'no.oslomet.cs.algdat'
+version = '1.0-SNAPSHOT'
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher:1.8.1')
+}
+
+test {
+    useJUnitPlatform()
+}
