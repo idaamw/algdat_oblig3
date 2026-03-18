@@ -1,13 +1,12 @@
-# Obligatorisk Oppgave 3 i DATS2300 - Algoritmer og Datastrukturer
+# Obligatorisk Oppgave 3 i DATS2300 - Algoritmer og Datastrukturer: binærsøketre
 
 Denne oppgaven er en innlevering i DATS2300 - Algoritmer og datastrukturer. Den er innlevert av følgende student:
 * s371439@oslomet.no
 
 ## Oppgavebeskrivelser
 
-### Oppgave 1
-Dette er så å si helt samme kode som i eksempelet fra kapittel 5.2. Forskjellen er at ved oppretting av et nytt nodeobjekt,
-legges forelderen q inn som parameter i konstruktøren.
+### Oppgave 1 - OPPRETTE NY NODE
+Ved oppretting av et nytt nodeobjekt legges forelderen q inn som parameter i konstruktøren.
 
 I while løkken flytter p og q seg nedover treet ved hjelp av komparatoren som bestemmer om de skal flytte seg mot høyre eller
 venstre for hver node (komparatoren sammenlikner verdien som er oppgitt i metoden med nodens verdi). p blir alltid liggende et
@@ -15,7 +14,7 @@ steg foran q i hver iterasjon. Derfor vet vi at når p havner utenfor treet, er 
 Noden opprettes ved hjelp av konstruktøren i klassen som tar inn verdi og forelder. If setnignen avgjør om noden blir et venstre-
 eller høyrebarn (eller blir rotnode hvis treet er tomt).
 
-### Oppgave 2
+### Oppgave 2 - ANTALL
 I metoden antall(T verdi) sjekkes det først om treet er tomt eller om verdien vi ser etter er null, og returnerer i såfall 0. Vi kan
 returnere 0 hvis vi ser etter nullverdi, fordi leggInn metoden ikke tillater nullverdier, og vi vet dermed at det ikke finnes i treet.
 
@@ -25,7 +24,6 @@ enn nodeverdi så vi går mot venstre), eller positivt tall (T verdi er større 
 p==null og vi er ute av treet.
 
 ### Oppgave 3 - POSTORDEN
-
 #### førstePostorden(Node<T> p)
 For å finne første node i postorden må vi gå nedover i treet, for hver iterasjon til venstre hvis mulig,
 ellers til høyre. Når vi kommer til en node uten barn vet vi at det er første node i postorden, fordi det
@@ -40,7 +38,7 @@ traverseringen. Her er det flere ulike muligheter:
 * Dersom p er venstrebarn med et høyresøsken: neste node er første node postorden i subrteet med høyresøskenet som rot.
 
 
-### Oppgave 4
+### Oppgave 4 - REKURSIV POSTORDEN
 I postOrden(), den ikke rekursive metoden, brukte jeg først førstePostorden(rot) for å finne første node i postorden. I while løkken kalles utførOppgave på den nåværende noden, og deretter
 brukes nestePostorden() til å finne neste node. Siden nestePostorden() returnerer null når noden ikke har foreldre, vil while løkken slutte å iterere etter at oppgaven er utført på rotnoden.
 
@@ -54,7 +52,7 @@ Nå kalles metoden med høyrebarnet som rot. Hvis høyrebarnet eksisterer, vil r
 og base casen utløses. Da er vi igjen tilbake i metodekall x. Siden det ikke er flere barn igjen å gå gjennom her, kan oppgaven nå utføres på rotnoden for dette kallet. Kallet fjernes så fra stacken, og vi går tilbake til forrige kall
 der rotnoden er forelderen til noden vi nettopp gjorde oss ferdig med.
 
-### Oppgave 5
+### Oppgave 5 - FJERNING AV NODE
 Først brukes komparatoren til å finne fram til noden med gitt verdi. Videre er det 4 ulike tilfeller: p har ingen barn, p har et venstrebarn, p har et høyrebarn eller p har 2 barn.
 
 #### Dersom p ikke har barn:
